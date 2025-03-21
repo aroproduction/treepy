@@ -39,15 +39,11 @@ def main():
     elif args_amount == 2 and is_all is False:
         if directory_sanitizer(sys.argv[1]):
             print_tree(sys.argv[1])
-        else:
-            print(f"{sys.argv[1]} is not a valid directory")
     elif args_amount == 3 and is_all is True:
         if directory_sanitizer(sys.argv[1]):
             print_tree(sys.argv[1], include_dotfiles=is_all)
-        else:
-            print(f"{sys.argv[1]} is not a valid directory")
     else:
-        print("use")
+        print("usage: tree || tree <DIR> [-a | --all]")
 
 def directory_sanitizer(path):
     """
@@ -64,9 +60,16 @@ def directory_sanitizer(path):
         if os.path.isdir(path):
             return True
         else:
+            print(f"error: the directory '{path}' does not exist.")
             return False
-    except Exception as e:
-        print(f"error checking directory: {e}")
+    except FileNotFoundError:
+        print(f"error: the directory '{path}' does not exist.")
+        return False
+    except PermissionError:
+        print(f"error: you do not have the necessary permissions to access '{path}'.")
+        return False
+    except OSError as e:
+        print(f"error checking directory:\n{e}")
         return False
 
 def print_tree(directory, prefix="", include_dotfiles=False):
