@@ -1,9 +1,26 @@
+"""
+This script is open source under the MIT License.
+
+Copyright (c) 2025 Zahra A. S.
+Email: 182934048+zhrsh@users.noreply.github.com
+
+tree.py
+
+Recursively prints the structure of a certain directory in a tree-esque format.
+"""
+
 #!/usr/bin/env python3
 
 import os
 import sys
 
 def main():
+    """
+    Main function of tree.py. Parses command line arguments (sys.argv)
+
+    Args: None
+    Returns: None
+    """
     args_amount = len(sys.argv)
 
     # check for -a or --all flag in the last arg
@@ -33,6 +50,15 @@ def main():
         print("usage: tree || tree <DIR> [-a | --all]")
 
 def directory_sanitizer(path):
+    """
+    Checks if the provided path is a valid directory.
+
+    Args:
+        directory (str): The path to the directory to be validated.
+
+    Returns:
+        bool: True if the path is a valid directory, False otherwise.
+    """
     try:
         # check if the path is a directory
         if os.path.isdir(path):
@@ -44,6 +70,19 @@ def directory_sanitizer(path):
         return False
 
 def print_tree(directory, prefix="", include_dotfiles=False):
+    """
+    Recursively prints the directory structure in a tree-esque format.
+
+    Args:
+        directory (str): The path to the directory to be printed.
+        prefix (str, optional): The string prefix used for indentation in the output. 
+                                Defaults to an empty string.
+        include_dotfiles (bool, optional): If True, includes hidden files (dotfiles) 
+                                            in the output. Defaults to False.
+
+    Returns:
+        None: This function prints the directory structure to the console.
+    """
     # get a list of all files and directories in the given directory
     items = os.listdir(directory)
     if include_dotfiles is False:
