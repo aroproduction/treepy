@@ -4,17 +4,33 @@ import os
 import sys
 
 def main():
-    # cwd
-    if len(sys.argv) == 1:
+    args_amount = len(sys.argv)
+
+    # check for -a or --all flag in the last arg
+    if sys.argv[args_amount - 1] in ["-a", "--all"]:
+        is_all = True
+    else:
+        is_all = False
+
+    # print cwd if no directory specified
+    if args_amount == 1:
         print_tree(os.getcwd())
+    elif args_amount == 2 and is_all is True:
+        print_tree(os.getcwd(), include_dotfiles=is_all)
+
     # specified directory
-    elif len(sys.argv) == 2:
+    elif args_amount == 2 and is_all is False:
         if directory_sanitizer(sys.argv[1]):
             print_tree(sys.argv[1])
         else:
-            print(f"{sys.arg[1]} is not a valid directory")
+            print(f"{sys.argv[1]} is not a valid directory")
+    elif args_amount == 3 and is_all is True:
+        if directory_sanitizer(sys.argv[1]):
+            print_tree(sys.argv[1], include_dotfiles=is_all)
+        else:
+            print(f"{sys.argv[1]} is not a valid directory")
     else:
-        print("usage: tree || tree <DIR>")
+        print("usage: tree || tree <DIR> [-a | --all]")
 
 def directory_sanitizer(path):
     try:
@@ -30,8 +46,9 @@ def directory_sanitizer(path):
 def print_tree(directory, prefix="", include_dotfiles=False):
     # get a list of all files and directories in the given directory
     items = os.listdir(directory)
-    # remove all dot files
-    items = [item for item in items if not item.startswith('.')]
+    if include_dotfiles is False:
+        # remove all dot files
+        items = [item for item in items if not item.startswith('.')]
     # count the number of items to handle the last item differently
     count = len(items)
 
