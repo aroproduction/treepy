@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 This script is open source under the MIT License.
 
@@ -8,8 +10,6 @@ tree.py
 
 Recursively prints the structure of a certain directory in a tree-esque format.
 """
-
-#!/usr/bin/env python3
 
 import os
 import sys
@@ -47,7 +47,7 @@ def main():
         else:
             print(f"{sys.argv[1]} is not a valid directory")
     else:
-        print("usage: tree || tree <DIR> [-a | --all]")
+        print("use")
 
 def directory_sanitizer(path):
     """
