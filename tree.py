@@ -30,6 +30,8 @@ def directory_sanitizer(path):
 def print_tree(directory, prefix="", include_dotfiles=False):
     # get a list of all files and directories in the given directory
     items = os.listdir(directory)
+    # remove all dot files
+    items = [item for item in items if not item.startswith('.')]
     # count the number of items to handle the last item differently
     count = len(items)
 
