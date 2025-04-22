@@ -14,7 +14,7 @@ Recursively prints the structure of a certain directory in a tree-esque format.
 import os
 import sys
 
-def main():
+def main() -> None:
     """
     Main function of tree.py. Parses command line arguments (sys.argv)
 
@@ -45,12 +45,12 @@ def main():
     else:
         print("usage: tree || tree <DIR> [-a | --all]")
 
-def directory_sanitizer(path):
+def directory_sanitizer(path: str) -> bool:
     """
     Checks if the provided path is a valid directory.
 
     Args:
-        directory (str): The path to the directory to be validated.
+        path (str): The path to the directory to be validated.
 
     Returns:
         bool: True if the path is a valid directory, False otherwise.
@@ -72,7 +72,9 @@ def directory_sanitizer(path):
         print(f"error checking directory:\n{e}")
         return False
 
-def print_tree(directory, prefix="", include_dotfiles=False):
+def print_tree(
+    directory: str, prefix: str = "", include_dotfiles: bool = False
+) -> None:
     """
     Recursively prints the directory structure in a tree-esque format.
 
