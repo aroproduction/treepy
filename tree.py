@@ -73,7 +73,11 @@ def directory_sanitizer(path: str) -> bool:
         return False
 
 def print_tree(
-    directory: str, prefix: str="", include_dotfiles: bool=False
+    directory: str,
+    prefix: str="",
+    include_dotfiles: bool=False,
+    max_depth: int=10,     # default 10
+    current_depth: int=0   # current depth
 ) -> None:
     """
     Recursively prints the directory structure in a tree-esque format.
@@ -83,11 +87,17 @@ def print_tree(
         prefix (str, optional): The string prefix used for indentation in the output. 
                                 Defaults to an empty string.
         include_dotfiles (bool, optional): If True, includes hidden files (dotfiles) 
-                                            in the output. Defaults to False.
+                                           in the output. Defaults to False.
+        max_depth (int, optional): The maximum depth of recursion. Defaults to no limit.
+        current_depth (int, optional): The current depth of recursion. Defaults to 0.
 
     Returns:
         None: This function prints the directory structure to the console.
     """
+    # if the current depth exceeds maximum depth
+    if current_depth > max_depth:
+        return
+
     # get a list of all files and directories in the given directory
     items = os.listdir(directory)
     if include_dotfiles is False:
@@ -113,7 +123,7 @@ def print_tree(
         # if its a directory, recursively print its contents
         if os.path.isdir(path):
             # prefix = current prefix + new prefix
-            print_tree(path, prefix + ("    " if is_last else "│   "), include_dotfiles)
+            print_tree(path, prefix + ("    " if is_last else "│   "), include_dotfiles, max_depth, current_depth + 1)
 
 if __name__ == "__main__":
     main()
