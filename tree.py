@@ -8,7 +8,7 @@ Email: 182934048+zhrsh@users.noreply.github.com
 
 tree.py
 
-Recursively prints the structure of a certain directory in a tree-esque format.
+Recursively prints the structure of a certain directory and subdirectories in a tree-esque format.
 """
 
 import os
@@ -77,10 +77,35 @@ def print_tree(
     prefix: str="",
     include_dotfiles: bool=False,
     max_depth: int=10,     # default 10
+) -> None:
+    """
+    `print_directory` prints the directory and subdirectories structure in a tree-esque format.
+    This function only includes the CWD as the parent directory.
+
+    Args:
+        directory (str): The path to the directory to be printed.
+        prefix (str, optional): The string prefix used for indentation in the output. 
+                                Defaults to an empty string.
+        include_dotfiles (bool, optional): If True, includes hidden files (dotfiles) 
+                                           in the output. Defaults to False.
+        max_depth (int, optional): The maximum depth of recursion. Defaults to no limit.
+        current_depth (int, optional): The current depth of recursion. Defaults to 0.
+
+    Returns:
+        None: This function prints the directory structure to the console.
+    """
+    print(os.path.basename(os.getcwd()) + "/")
+    print_directory(directory, prefix, include_dotfiles, max_depth)
+
+def print_directory(
+    directory: str,
+    prefix: str="",
+    include_dotfiles: bool=False,
+    max_depth: int=10,     # default 10
     current_depth: int=0   # current depth
 ) -> None:
     """
-    Recursively prints the directory structure in a tree-esque format.
+    Prints the directory and subdirectories structure in a tree-esque format.
 
     Args:
         directory (str): The path to the directory to be printed.
@@ -123,7 +148,13 @@ def print_tree(
         # if its a directory, recursively print its contents
         if os.path.isdir(path):
             # prefix = current prefix + new prefix
-            print_tree(path, prefix + ("    " if is_last else "│   "), include_dotfiles, max_depth, current_depth + 1)
+            print_directory(
+                path,
+                prefix + ("    " if is_last else "│   "),
+                include_dotfiles,
+                max_depth,
+                current_depth + 1
+            )
 
 if __name__ == "__main__":
     main()
