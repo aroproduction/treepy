@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
 DIR_USR="$HOME/bin/"
+NAME="tree"
+EXTENSION=".py"
 
-cp tree.py tree
-chmod +x tree
+cp "$NAME$EXTENSION" "$NAME"
+chmod +x "$NAME"
 
-if [ -d "$DIR_USR" ]; then
-    mv tree "$DIR_USR"
+if [[ "$#" == 1 && -d "$1" ]]; then
+    mv -iv "$NAME" "$1"
+elif [ -d "$DIR_USR" ]; then
+    mv -iv "$NAME" "$DIR_USR"
 fi
-
-# alternative installation paths to be added later
