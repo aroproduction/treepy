@@ -63,10 +63,20 @@ $ tree -d 3 # only print subdirectories that are no more than 3 directories deep
 ```
 
 ```bash
-$ tree ~/Projects/example/directory --depth 0 # dont print subdirectories (similar to ls command)
+$ tree --depth 0 # dont print subdirectories (similar to ls command)
 ```
 
 The [examples](#using-tree--d-0) probably explain this better.
+
+### Saving into a file
+
+Tree only outputs to the stdout. Use output redirection to save to a file.
+
+```bash
+tree > tree.txt
+```
+
+This saves the output to `tree.txt` instead of dispalying it on the terminal.
 
 ## Examples
 
@@ -92,7 +102,7 @@ my-portfolio/
 │   └── fonts/
 │       ├── ebgaramond-italic-variablefont_wght.woff
 │       ├── meyne_textur.ttf
-│       └──  ebgaramond-variablefont_wght.woff
+│       └── ebgaramond-variablefont_wght.woff
 └── pages/
     └── index.html
 ```
@@ -104,7 +114,7 @@ This includes dotfiles and limits the subdirectory depth to 1
 ```plaintext
 my-portfolio/
 ├── .DS_Store
-├── readme.md
+├── README.md
 ├── .gitignore
 ├── .git/
 │   ├── .DS_Store
@@ -122,7 +132,7 @@ my-portfolio/
 Limits the subdirectory depth to 0
 ```plaintext
 my-portfolio/
-├── readme.md
+├── README.md
 ├── assets/
 └── pages/
 ```
@@ -131,7 +141,7 @@ my-portfolio/
 Limits the subdirectory depth to 1
 ```plaintext
 my-portfolio/
-├── readme.md
+├── README.md
 ├── assets/
 │   ├── css/
 │   ├── js/
