@@ -15,6 +15,7 @@ from argparse import ArgumentParser
 import os
 
 NAME="tree"
+DEBUG=False
 
 def main() -> None:
     """
@@ -25,9 +26,18 @@ def main() -> None:
     """
     args = run_argparse()
 
-    if directory_sanitizer(args.directory):
-        print_tree(args.directory, include_dotfiles=args.all, max_depth=args.depth)
+    # TEMP
+    if DEBUG:
+        print(args.directory_format)
+        print(repr(ansi_parse(args.directory_format)))
 
+    if directory_sanitizer(args.directory):
+        print_tree(
+            args.directory,
+            include_dotfiles=args.all,
+            max_depth=args.depth,
+            format_dir=ansi_parse(args.directory_format)
+        )
 
 def run_argparse() -> ArgumentParser:
     """
@@ -66,6 +76,18 @@ def run_argparse() -> ArgumentParser:
         help='limit of the subdirectory depth to recursively print (default: 10).'
     )
 
+    parser.add_argument(
+        '--directory-format', default=[1],
+        nargs='*', # 0 or more
+        type=int,
+        metavar="[INT ...]",
+        choices=range(0, 54), # 0–53
+        help='''0 or more arguments allowed. ANSI escape integer from 0 to 53. 0
+        for none, 1 for bold (default), 2 for dim, etc. more info:
+        https://en.wikipedia.org/wiki/ANSI_escape_code#Select_Graphic_Rendition_parameters
+        (default: 1)''' # TODO: improve help message
+    )
+
     return parser.parse_args()
 
 def directory_sanitizer(path: str) -> bool:
@@ -94,6 +116,13 @@ def directory_sanitizer(path: str) -> bool:
     except OSError as e:
         print(f"error checking directory:\n{e}")
         return False
+
+def ansi_parse(args: list) -> str:
+    try:
+        args = [int(x) for x in args]
+    except (TypeError, ValueError):
+        return ""
+    return f"\033[{';'.join(map(str, args))}m"
 
 def print_tree(
     directory: str,
