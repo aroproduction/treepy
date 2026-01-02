@@ -14,14 +14,14 @@ Python 3.9.6 or higher
 
 Assuming you have ~/bin as a PATH environment variable and python 3 installed, run this in your terminal:
 ```bash
-git clone https://github.com/zhrsh/treepy.git
+git clone https://github.com/zeashel/treepy.git
 cd treepy
 ./install.sh
 ```
 
 You can add an argument to ./install.sh if a different installation path is needed.
 ```bash
-git clone https://github.com/zhrsh/treepy.git
+git clone https://github.com/zeashel/treepy.git
 cd treepy
 ./install.sh DIFFERENT/INSTALL/PATH
 ```

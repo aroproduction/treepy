@@ -4,7 +4,7 @@
 This script is open source under the MIT License.
 
 Copyright (c) 2025 Zahra A. S.
-Email: 182934048+zhrsh@users.noreply.github.com
+Email: 182934048+zeashel@users.noreply.github.com
 
 tree.py
 
@@ -35,14 +35,14 @@ def run_argparse() -> ArgumentParser:
 
     Args: None
     Returns: 
-        parser.parse_args() (parsed arguments. ArgumentParser obj)
+        ArgumentParser: an object, parser.parse_args() (parsed arguments)
     """
 
     parser = ArgumentParser(
         description='''Recursively prints the structure of a certain directory
         and its subdirectories in a tree-esque format. This script is under the 
         MIT License. Copyright (c) 2025 Zahra A. S.''',
-        epilog='For more information, see documentation at github.com/zhrsh/treepy',
+        epilog='For more information, see documentation at github.com/zeashel/treepy',
         prog=NAME
     )
 
