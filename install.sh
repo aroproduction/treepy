@@ -5,7 +5,7 @@ NAME="tree"
 EXTENSION=".py"
 
 cp "$NAME$EXTENSION" "$NAME"
-chmod +x "$NAME"
+chmod u+x "$NAME"
 
 if [[ "$#" == 1 && -d "$1" ]]; then
     mv -iv "$NAME" "$1"
