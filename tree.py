@@ -166,12 +166,13 @@ def print_tree(
     Returns:
         None: This function prints the directory structure to the stdout.
     """
-    if current_depth > max_depth:
-        return
 
     if current_depth == 0:
         # root of the tree
         print(format_dir + os.path.basename(directory) + "/\033[0m")
+
+    if current_depth >= max_depth:
+        return
 
     # get a list of all files and directories in the given directory
     items = os.listdir(directory)
